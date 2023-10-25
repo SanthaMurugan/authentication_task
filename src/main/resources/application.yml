@@ -1,0 +1,18 @@
+server:
+  port : 8090
+spring:
+  datasource:
+    url: jdbc:postgresql://demo-dev-3386.7s5.cockroachlabs.cloud:26257/yaantrac
+    username: santhamurugan
+    password: nkHt1HswVIP2whj3AtA88g
+    driver-class-name: org.postgresql.Driver
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
