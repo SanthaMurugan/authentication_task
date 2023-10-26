@@ -48,6 +48,10 @@ public class UserService {
     public ResponseEntity<ApiResponse> signup(SignupDto signupDto) throws Exception{
         try {
             User existingUser = userRepo.findByUsername(signupDto.getUsername());
+            if (!("user".equals(signupDto.getRole()) || "admin".equals(signupDto.getRole()))) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ApiResponse(HttpStatus.BAD_REQUEST, StringConstants.INVALID_ROLE, new ArrayList<>()));
+            }
             if (existingUser != null) {
                 throw new UserNameAlreadyExistsException(StringConstants.USER_NAME_ALREADY_EXISTS);            }
             User user = new User();

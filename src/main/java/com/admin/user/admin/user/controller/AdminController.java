@@ -3,10 +3,13 @@ package com.admin.user.admin.user.controller;
 import com.admin.user.admin.user.common.ApiResponse;
 import com.admin.user.admin.user.dto.AddInfoDto;
 import com.admin.user.admin.user.dto.UpdateDto;
+import com.admin.user.admin.user.entity.User;
 import com.admin.user.admin.user.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -40,4 +43,9 @@ public class AdminController {
         return adminService.delete();
     }
 
+    //getAll
+    @GetMapping("/get/all")
+    public List<User> getAll(){
+        return adminService.getAll();
+    }
 }

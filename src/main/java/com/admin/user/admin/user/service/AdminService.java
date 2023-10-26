@@ -16,13 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -136,4 +134,13 @@ public class AdminService {
     }
 
 
+    public List<User> getAll() {
+        String role = requestMeta.getRole();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> query = cb.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        Predicate rolePredicate = cb.equal(root.get("role"), role);
+        query.select(root).where(rolePredicate);
+        return entityManager.createQuery(query).getResultList();
+    }
 }
